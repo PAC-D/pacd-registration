@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAC-D Events</title>
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/brand/icon-512.png">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <meta name="theme-color" content="#002b61">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PAC-D Events">
+  <meta property="og:description" content="Upcoming events — registration opens for each program on the date shown.">
+  <meta property="og:url" content="https://registration.pac-d.com/">
+  <meta property="og:image" content="https://registration.pac-d.com/brand/icon-512.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    /* PACD registration hub — design language of the registration app
+       (Inter, frosted glass, rise-in motion) on a neutral palette with
+       PACD navy accents. */
+    :root {
+      --navy: #002b61;
+      --navy-2: #003f86;
+      --navy-soft: #eef2f8;
+      --ink: #101828;
+      --ink-2: #344054;
+      --muted: #667085;
+      --line: #e4e7ec;
+      --tile-border: #e8ebf0;
+      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-tile: 0 10px 28px rgba(16, 24, 40, 0.09), 0 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-tile-hover: 0 20px 44px rgba(0, 43, 97, 0.14), 0 2px 4px rgba(16, 24, 40, 0.06);
+      --radius-card: 18px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--ink);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      line-height: 1.5;
+      background: linear-gradient(165deg, #f7f8fa 0%, #eef0f4 55%, #f0f3f1 100%) fixed;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Thin brand accent strip (color as accent, not background) */
+    .top-strip {
+      height: 5px;
+      background: linear-gradient(90deg, var(--navy) 0%, #0082cb 55%, #00aeef 100%);
+    }
+
+    /* ---------- Floating background shapes (neutral slate greys) ---------- */
+    .bg-blobs { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+    .bg-blobs span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      animation: drift 22s ease-in-out infinite alternate;
+    }
+    .bg-blobs span:nth-child(1) { width: 460px; height: 460px; background: #dfe4ec; top: 220px; left: -130px; }
+    .bg-blobs span:nth-child(2) { width: 400px; height: 400px; background: #e9ebef; bottom: -150px; right: -90px; animation-delay: -7s; }
+    .bg-blobs span:nth-child(3) { width: 300px; height: 300px; background: #dde3ec; top: 55%; left: 52%; animation-delay: -14s; }
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, 30px) scale(1.08); }
+      100% { transform: translate(-30px, 50px) scale(0.95); }
+    }
+
+    /* ---------- Entrance motion ---------- */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: none; }
+    }
+    .anim-rise { animation: rise 0.65s var(--ease-out) backwards; animation-delay: calc(var(--i, 0) * 110ms); }
+    @media (prefers-reduced-motion: reduce) { .anim-rise, .bg-blobs span { animation: none; } }
+
+    /* ---------- Hero ---------- */
+    .hero { text-align: center; padding: 68px 20px 40px; }
+    .logo-chip {
+      display: inline-flex;
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 6px 18px rgba(16, 24, 40, 0.1);
+      margin-bottom: 26px;
+    }
+    .logo-chip img { display: block; width: 128px; height: auto; }
+    .hero h1 {
+      margin: 0;
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.022em;
+      color: var(--navy);
+    }
+    .hero p { margin: 10px auto 0; max-width: 460px; color: var(--muted); font-size: 1.02rem; }
+
+    /* ---------- Event tiles ---------- */
+    .grid {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+      flex: 1;
+    }
+    .tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 26px 24px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--tile-border);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-tile);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out), border-color 0.22s var(--ease-out);
+    }
+    .tile:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 43, 97, 0.35);
+      box-shadow: var(--shadow-tile-hover);
+    }
+    .tile:active { transform: translateY(-1px) scale(0.995); }
+    .tile:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(0, 43, 97, 0.22), var(--shadow-tile-hover); }
+    .tile-closed,
+    .tile-closed:hover,
+    .tile-closed:active {
+      cursor: default;
+      transform: none;
+      border-color: var(--tile-border);
+      box-shadow: var(--shadow-tile);
+    }
+    .icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--navy-soft);
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+    }
+    .icon-wrap svg { width: 26px; height: 26px; stroke: var(--navy); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .tile h2 { margin: 0 0 14px; font-size: 1.18rem; font-weight: 700; letter-spacing: -0.012em; color: var(--ink); }
+    .meta { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .meta li { display: flex; align-items: center; gap: 10px; color: var(--ink-2); font-size: 0.93rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .meta svg { width: 17px; height: 17px; flex: none; stroke: var(--navy); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.8; }
+    .meta .lbl { color: var(--muted); }
+
+    /* Primark program mark, top-right of each tile */
+    .tile h2 { padding-right: 96px; }
+    .tile-mark { position: absolute; top: 20px; right: 22px; width: 70px; height: auto; }
+    .tile-disabled .tile-mark { opacity: 0.45; }
+
+    .cta[hidden] { display: none; }
+
+    /* ---------- Disabled / upcoming tile ---------- */
+    .tile-disabled,
+    .tile-disabled:hover {
+      cursor: default;
+      transform: none;
+      border-color: var(--tile-border);
+      border-style: dashed;
+      box-shadow: var(--shadow-tile);
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .tile-disabled .icon-wrap { background: #eef0f3; }
+    .tile-disabled .icon-wrap svg { stroke: var(--muted); }
+    .tile-disabled h2 { color: var(--ink-2); }
+    .tile-disabled .meta svg { stroke: var(--muted); }
+    .tile-disabled .meta li { color: var(--muted); }
+    .soon {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      border: 1px solid var(--line);
+      color: var(--ink-2);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .soon svg { width: 15px; height: 15px; stroke: var(--muted); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .tile .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .tile .cta .arrow { transition: transform 0.2s var(--ease-out); }
+    .tile:hover .cta .arrow { transform: translateX(4px); }
+    .tile .cta-closed,
+    .tile:hover .cta-closed {
+      align-self: flex-start;
+      padding: 8px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: not-allowed;
+    }
+
+    /* ---------- Past events (collapsible, closed by default) ---------- */
+    .past {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 20px 64px;
+    }
+    .past details {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .past summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 22px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink-2);
+      user-select: none;
+    }
+    .past summary::-webkit-details-marker { display: none; }
+    .past summary:hover { background: #f8fafc; }
+    .past summary:focus-visible { outline: none; box-shadow: inset 0 0 0 3px rgba(0, 43, 97, 0.2); }
+    .past summary .chev {
+      width: 18px;
+      height: 18px;
+      flex: none;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.2s var(--ease-out);
+    }
+    .past details[open] summary .chev { transform: rotate(90deg); }
+    .past summary .count {
+      margin-left: auto;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .past-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+      padding: 4px 22px 22px;
+    }
+
+    @media (max-width: 560px) {
+      .meta .lbl { display: none; } /* icon carries the meaning; keeps every row on one line */
+      .hero { padding: 48px 20px 32px; }
+      .hero h1 { font-size: 1.6rem; }
+      .logo-chip img { width: 104px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-strip" aria-hidden="true"></div>
+  <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <header class="hero anim-rise" style="--i: 0">
+    <span class="logo-chip"><img src="/brand/pacd.png" alt="PacD" width="458" height="154"></span>
+    <h1>Upcoming Events</h1>
+    <p>Registration opens for each program on the date shown.</p>
+  </header>
+
+  <main class="grid">
+    <!-- To add a future PACD event: copy one <div class="tile"> block and change the link, title, and text. -->
+    <div class="tile tile-closed anim-rise" style="--i: 1">
+      <img class="tile-mark" src="/brand/primark.png" alt="Primark" width="2285" height="311">
+      <span class="icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M21 8.5 12 3 3 8.5v7L12 21l9-5.5v-7Z"/><path d="M3 8.5 12 13l9-4.5"/><path d="M12 13v8"/></svg>
+      </span>
+      <h2>Primark Carton Nomination Program (In-person)</h2>
+      <ul class="meta">
+        <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/></svg>Nov 04, 2026</li>
+        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>9:30 AM &ndash; 4:30 PM (GMT+6)</li>
+        <li><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/><circle cx="16.5" cy="9" r="2.4"/><path d="M15.5 15.2c2.3.2 4.1 1.6 4.7 4.3"/></svg><span class="lbl">Event Type:</span>Face-to-Face</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h12l-2.4 3.6L17 11H5"/></svg>Bangladesh Origin</li>
+      </ul>
+      <button class="cta cta-closed" type="button" disabled>Registration closed</button>
+    </div>
+
+    <div class="tile tile-closed anim-rise" style="--i: 2">
+      <img class="tile-mark" src="/brand/pacd.png" alt="PACD" width="458" height="154">
+      <span class="icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.3 6h7.4M7.3 8.2l3.4 7.4M16.7 8.2l-3.4 7.4"/></svg>
+      </span>
+      <h2>Carton Connect Registration</h2>
+      <ul class="meta">
+        <li><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Supplier, factory &amp; packaging onboarding</li>
+      </ul>
+      <button class="cta cta-closed" type="button" disabled>Opening Soon</button>
+    </div>
+  </main>
+
+  <!-- Past events — collapsed by default; add finished events here (no link) -->
+  <section class="past anim-rise" style="--i: 3">
+    <details>
+      <summary>
+        <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        Past events
+        <span class="count">1</span>
+      </summary>
+
+      <div class="past-grid">
+        <div class="tile tile-disabled">
+          <img class="tile-mark" src="/brand/primark.png" alt="Primark" width="2285" height="311">
+          <span class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="12" rx="2"/><path d="m10.5 8.7 4.5 2.55-4.5 2.55V8.7Z"/><path d="M8.5 19.5h7"/></svg>
+          </span>
+          <h2>Virtual Training and Program Introduction</h2>
+          <ul class="meta">
+            <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/></svg>Oct 15, 2026</li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="lbl">Time:</span>03:00 PM &ndash; 04:00 PM (GMT+6)</li>
+            <li><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg><span class="lbl">Event Type:</span>Webinar (Microsoft Teams)</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h12l-2.4 3.6L17 11H5"/></svg>Bangladesh Origin</li>
+          </ul>
+          <span class="soon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Event ended</span>
+        </div>
+      </div>
+    </details>
+  </section>
+</body>
+</html>
