@@ -8,351 +8,246 @@
   <link rel="icon" type="image/png" sizes="32x32" href="brand/favicon-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="brand/icon-512.png">
   <link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
-  <meta name="theme-color" content="#002b61">
+  <meta name="theme-color" content="#f7f4ee">
+  <meta name="description" content="Carton Connect registration is open. The PACD portal for Primark carton suppliers, factories and packaging.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="PAC-D Events">
-  <meta property="og:description" content="Upcoming events — registration opens for each program on the date shown.">
+  <meta property="og:title" content="Carton Connect registration is open">
+  <meta property="og:description" content="The PACD portal for Primark carton suppliers, factories and packaging.">
   <meta property="og:url" content="https://registration.pac-d.com/">
   <meta property="og:image" content="https://registration.pac-d.com/brand/icon-512.png">
   <meta name="twitter:card" content="summary">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
   <style>
-    /* PACD registration hub — design language of the registration app
-       (Inter, frosted glass, rise-in motion) on a neutral palette with
-       PACD navy accents. */
     :root {
+      /* Warm paper ramp, PACD navy as the one accent */
+      --bg: #f7f4ee;
+      --card: #fdfbf7;
+      --raised: #efe9df;
+      --line: rgba(31, 27, 22, 0.1);
+      --fold: rgba(31, 27, 22, 0.22);
+      --text: #1f1b16;
+      --text-2: #5e554a;
+      --muted: #756c60;
       --navy: #002b61;
-      --navy-2: #003f86;
-      --navy-soft: #eef2f8;
-      --ink: #101828;
-      --ink-2: #344054;
-      --muted: #667085;
-      --line: #e4e7ec;
-      --tile-border: #e8ebf0;
-      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.05);
-      --shadow-tile: 0 10px 28px rgba(16, 24, 40, 0.09), 0 1px 2px rgba(16, 24, 40, 0.05);
-      --shadow-tile-hover: 0 20px 44px rgba(0, 43, 97, 0.14), 0 2px 4px rgba(16, 24, 40, 0.06);
-      --radius-card: 18px;
-      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-      color: var(--ink);
+      --navy-hover: #0a3a78;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      min-height: 100vh;
-      line-height: 1.5;
-      background: linear-gradient(165deg, #f7f8fa 0%, #eef0f4 55%, #f0f3f1 100%) fixed;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+      font: 400 15px/1.5 var(--sans);
+      -webkit-font-smoothing: antialiased;
     }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 
-    /* Thin brand accent strip (color as accent, not background) */
-    .top-strip {
-      height: 5px;
-      background: linear-gradient(90deg, var(--navy) 0%, #0082cb 55%, #00aeef 100%);
-    }
+    /* Header */
+    .site-head { border-bottom: 1px solid var(--line); }
+    .site-head .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .site-head img { display: block; height: 28px; width: auto; }
+    .site-head span { font-size: 14px; color: var(--muted); }
 
-    /* ---------- Floating background shapes (neutral slate greys) ---------- */
-    .bg-blobs { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-    .bg-blobs span {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.6;
-      animation: drift 22s ease-in-out infinite alternate;
+    /* Hero: text left, carton right */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 48px;
+      padding: 64px 0 80px;
     }
-    .bg-blobs span:nth-child(1) { width: 460px; height: 460px; background: #dfe4ec; top: 220px; left: -130px; }
-    .bg-blobs span:nth-child(2) { width: 400px; height: 400px; background: #e9ebef; bottom: -150px; right: -90px; animation-delay: -7s; }
-    .bg-blobs span:nth-child(3) { width: 300px; height: 300px; background: #dde3ec; top: 55%; left: 52%; animation-delay: -14s; }
-    @keyframes drift {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(40px, 30px) scale(1.08); }
-      100% { transform: translate(-30px, 50px) scale(0.95); }
-    }
-
-    /* ---------- Entrance motion ---------- */
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(20px) scale(0.98); }
-      to { opacity: 1; transform: none; }
-    }
-    .anim-rise { animation: rise 0.65s var(--ease-out) backwards; animation-delay: calc(var(--i, 0) * 110ms); }
-    @media (prefers-reduced-motion: reduce) { .anim-rise, .bg-blobs span { animation: none; } }
-
-    /* ---------- Hero ---------- */
-    .hero { text-align: center; padding: 68px 20px 40px; }
-    .logo-chip {
-      display: inline-flex;
-      padding: 12px 20px;
-      border-radius: 14px;
-      background: #fff;
-      border: 1px solid var(--line);
-      box-shadow: 0 6px 18px rgba(16, 24, 40, 0.1);
-      margin-bottom: 26px;
-    }
-    .logo-chip img { display: block; width: 128px; height: auto; }
+    .ref { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; font: 400 13px/20px var(--mono); color: var(--muted); }
+    .ref img { width: 80px; height: auto; }
+    .ref span { padding-left: 12px; border-left: 1px solid var(--fold); }
     .hero h1 {
       margin: 0;
-      font-size: 2.1rem;
-      font-weight: 800;
-      letter-spacing: -0.022em;
+      font-size: 56px;
+      line-height: 1.06;
+      font-weight: 500;
+      letter-spacing: -0.03em;
       color: var(--navy);
+      text-wrap: balance;
     }
-    .hero p { margin: 10px auto 0; max-width: 460px; color: var(--muted); font-size: 1.02rem; }
-
-    /* ---------- Event tiles ---------- */
-    .grid {
-      width: 100%;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 20px;
-      flex: 1;
-    }
-    .tile {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding: 28px 26px 24px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--tile-border);
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-tile);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out), border-color 0.22s var(--ease-out);
-    }
-    .tile:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0, 43, 97, 0.35);
-      box-shadow: var(--shadow-tile-hover);
-    }
-    .tile:active { transform: translateY(-1px) scale(0.995); }
-    .tile:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(0, 43, 97, 0.22), var(--shadow-tile-hover); }
-    .tile-closed,
-    .tile-closed:hover,
-    .tile-closed:active {
-      cursor: default;
-      transform: none;
-      border-color: var(--tile-border);
-      box-shadow: var(--shadow-tile);
-    }
-    .icon-wrap {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: var(--navy-soft);
-      display: grid;
-      place-items: center;
-      margin-bottom: 20px;
-    }
-    .icon-wrap svg { width: 26px; height: 26px; stroke: var(--navy); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .tile h2 { margin: 0 0 14px; font-size: 1.18rem; font-weight: 700; letter-spacing: -0.012em; color: var(--ink); }
-    .meta { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .meta li { display: flex; align-items: center; gap: 10px; color: var(--ink-2); font-size: 0.93rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .meta svg { width: 17px; height: 17px; flex: none; stroke: var(--navy); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.8; }
-    .meta .lbl { color: var(--muted); }
-
-    /* Primark program mark, top-right of each tile */
-    .tile h2 { padding-right: 96px; }
-    .tile-mark { position: absolute; top: 20px; right: 22px; width: 70px; height: auto; }
-    .tile-disabled .tile-mark { opacity: 0.45; }
-
-    .cta[hidden] { display: none; }
-
-    /* ---------- Disabled / upcoming tile ---------- */
-    .tile-disabled,
-    .tile-disabled:hover {
-      cursor: default;
-      transform: none;
-      border-color: var(--tile-border);
-      border-style: dashed;
-      box-shadow: var(--shadow-tile);
-      background: rgba(255, 255, 255, 0.6);
-    }
-    .tile-disabled .icon-wrap { background: #eef0f3; }
-    .tile-disabled .icon-wrap svg { stroke: var(--muted); }
-    .tile-disabled h2 { color: var(--ink-2); }
-    .tile-disabled .meta svg { stroke: var(--muted); }
-    .tile-disabled .meta li { color: var(--muted); }
-    .soon {
+    .hero .sub { margin: 20px 0 0; max-width: 30rem; text-wrap: pretty; font-size: 19px; line-height: 29px; color: var(--text-2); }
+    .actions { display: flex; align-items: center; gap: 24px; margin-top: 40px; }
+    .btn {
       display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      align-self: flex-start;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      border: 1px solid var(--line);
-      color: var(--ink-2);
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-    .soon svg { width: 15px; height: 15px; stroke: var(--muted); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .tile .cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--navy);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .tile .cta .arrow { transition: transform 0.2s var(--ease-out); }
-    .tile:hover .cta .arrow { transform: translateX(4px); }
-    .tile .cta-closed,
-    .tile:hover .cta-closed {
-      align-self: flex-start;
-      padding: 8px 16px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #f3f4f6;
-      color: var(--muted);
-      font: inherit;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: not-allowed;
-    }
-
-    /* ---------- Past events (collapsible, closed by default) ---------- */
-    .past {
-      width: 100%;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 0 20px 64px;
-    }
-    .past details {
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-    }
-    .past summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
       align-items: center;
       gap: 10px;
-      padding: 16px 22px;
-      font-size: 0.98rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--ink-2);
-      user-select: none;
+      height: 48px;
+      padding: 0 20px;
+      border-radius: 8px;
+      background: var(--navy);
+      color: #fff;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: background-color 150ms var(--ease), transform 150ms var(--ease);
     }
-    .past summary::-webkit-details-marker { display: none; }
-    .past summary:hover { background: #f8fafc; }
-    .past summary:focus-visible { outline: none; box-shadow: inset 0 0 0 3px rgba(0, 43, 97, 0.2); }
-    .past summary .chev {
-      width: 18px;
-      height: 18px;
-      flex: none;
-      stroke: var(--muted);
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: transform 0.2s var(--ease-out);
-    }
-    .past details[open] summary .chev { transform: rotate(90deg); }
-    .past summary .count {
-      margin-left: auto;
-      padding: 2px 10px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .past-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 20px;
-      padding: 4px 22px 22px;
-    }
+    .btn:hover { background: var(--navy-hover); }
+    .btn:active { transform: scale(0.98); }
+    .btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .link { color: var(--text-2); text-decoration: none; transition: color 150ms var(--ease); }
+    .link:hover { color: var(--text); }
+    a:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 4px; }
 
-    @media (max-width: 560px) {
-      .meta .lbl { display: none; } /* icon carries the meaning; keeps every row on one line */
-      .hero { padding: 48px 20px 32px; }
-      .hero h1 { font-size: 1.6rem; }
-      .logo-chip img { width: 104px; }
+    .carton { display: block; width: 100%; max-width: 540px; height: auto; margin-left: auto; }
+
+    /* Past events: a dispatch ledger with dieline fold separators */
+    .past { padding: 0 0 96px; }
+    .past h2 { margin: 0 0 16px; font-size: 20px; font-weight: 500; }
+    .ledger { list-style: none; margin: 0; padding: 0; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+    .ledger li {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr) 88px 72px;
+      align-items: center;
+      gap: 24px;
+      min-height: 80px;
+      padding: 16px 24px;
+    }
+    .ledger li + li { border-top: 1px dashed var(--fold); }
+    .ledger time { font: 400 13px/20px var(--mono); color: var(--text-2); font-variant-numeric: tabular-nums; }
+    .ledger h3 { margin: 0; font-size: 15px; line-height: 22px; font-weight: 500; }
+    .ledger p { margin: 2px 0 0; font-size: 14px; line-height: 20px; color: var(--muted); }
+    .ledger img { width: 88px; height: auto; }
+    .ended { justify-self: end; font: 400 12px/16px var(--mono); color: var(--muted); }
+
+    footer { border-top: 1px solid var(--line); }
+    footer .wrap { display: flex; justify-content: space-between; padding-top: 24px; padding-bottom: 32px; font-size: 13px; color: var(--muted); }
+
+    /* One entrance on load */
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+    .enter { animation: rise 400ms var(--ease) backwards; }
+    .enter-2 { animation-delay: 60ms; }
+    @media (prefers-reduced-motion: reduce) { .enter { animation: none; } }
+
+    @media (max-width: 860px) {
+      .wrap { padding: 0 16px; }
+      .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 0 56px; }
+      .hero h1 { font-size: 40px; }
+      .hero .sub { font-size: 17px; line-height: 26px; }
+      .actions { margin-top: 32px; }
+      .carton { max-width: 400px; margin: 0 auto; }
+      .ledger li { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px; }
+      .ledger time { grid-column: 1; grid-row: 1; }
+      .ledger .ended { grid-column: 2; grid-row: 1; }
+      .ledger li > div { grid-column: 1 / -1; }
+      .ledger img { grid-column: 1; width: 72px; margin-top: 8px; }
     }
   </style>
 </head>
 <body>
-  <div class="top-strip" aria-hidden="true"></div>
-  <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
-
-  <header class="hero anim-rise" style="--i: 0">
-    <span class="logo-chip"><img src="brand/pacd.png" alt="PacD" width="458" height="154"></span>
-    <h1>Upcoming Events</h1>
-    <p>Registration opens for each program on the date shown.</p>
+  <header class="site-head">
+    <div class="wrap">
+      <img src="brand/pacd.png" alt="PACD" width="458" height="154">
+      <span>Event registration</span>
+    </div>
   </header>
 
-  <main class="grid">
-    <!-- To add a future PACD event: copy one <div class="tile"> block and change the link, title, and text. -->
-    <div class="tile tile-closed anim-rise" style="--i: 1">
-      <img class="tile-mark" src="brand/primark.png" alt="Primark" width="2285" height="311">
-      <span class="icon-wrap" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M21 8.5 12 3 3 8.5v7L12 21l9-5.5v-7Z"/><path d="M3 8.5 12 13l9-4.5"/><path d="M12 13v8"/></svg>
-      </span>
-      <h2>Primark Carton Nomination Program (In-person)</h2>
-      <ul class="meta">
-        <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/></svg>Nov 04, 2026</li>
-        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>9:30 AM &ndash; 4:30 PM (GMT+6)</li>
-        <li><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/><circle cx="16.5" cy="9" r="2.4"/><path d="M15.5 15.2c2.3.2 4.1 1.6 4.7 4.3"/></svg><span class="lbl">Event Type:</span>Face-to-Face</li>
-        <li><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h12l-2.4 3.6L17 11H5"/></svg>Bangladesh Origin</li>
-      </ul>
-      <button class="cta cta-closed" type="button" disabled>Registration closed</button>
-    </div>
-
-    <div class="tile tile-closed anim-rise" style="--i: 2">
-      <img class="tile-mark" src="brand/pacd.png" alt="PACD" width="458" height="154">
-      <span class="icon-wrap" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.3 6h7.4M7.3 8.2l3.4 7.4M16.7 8.2l-3.4 7.4"/></svg>
-      </span>
-      <h2>Carton Connect Registration</h2>
-      <ul class="meta">
-        <li><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Supplier, factory &amp; packaging onboarding</li>
-      </ul>
-      <button class="cta cta-closed" type="button" disabled>Opening Soon</button>
-    </div>
-  </main>
-
-  <!-- Past events — collapsed by default; add finished events here (no link) -->
-  <section class="past anim-rise" style="--i: 3">
-    <details>
-      <summary>
-        <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
-        Past events
-        <span class="count">1</span>
-      </summary>
-
-      <div class="past-grid">
-        <div class="tile tile-disabled">
-          <img class="tile-mark" src="brand/primark.png" alt="Primark" width="2285" height="311">
-          <span class="icon-wrap" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="12" rx="2"/><path d="m10.5 8.7 4.5 2.55-4.5 2.55V8.7Z"/><path d="M8.5 19.5h7"/></svg>
-          </span>
-          <h2>Virtual Training and Program Introduction</h2>
-          <ul class="meta">
-            <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/></svg>Oct 15, 2026</li>
-            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="lbl">Time:</span>03:00 PM &ndash; 04:00 PM (GMT+6)</li>
-            <li><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg><span class="lbl">Event Type:</span>Webinar (Microsoft Teams)</li>
-            <li><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h12l-2.4 3.6L17 11H5"/></svg>Bangladesh Origin</li>
-          </ul>
-          <span class="soon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Event ended</span>
+  <main class="wrap">
+    <!-- Open event. To open the next one, change the reference, headline, text and link. -->
+    <section class="hero">
+      <div class="enter">
+        <p class="ref"><img src="brand/primark.png" alt="Primark" width="2285" height="311"><span>Carton Connect · 2026</span></p>
+        <h1>Register for Carton Connect</h1>
+        <p class="sub">The PACD portal for Primark carton suppliers, factories and packaging. Registration is open.</p>
+        <div class="actions">
+          <a class="btn" href="https://registration.pac-d.com/cartonconnect-signup/">
+            Register
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="link" href="https://cartonconnect.pac-d.com/">Go to the portal</a>
         </div>
       </div>
-    </details>
-  </section>
+
+      <svg class="carton enter enter-2" viewBox="40 30 480 470" role="img" aria-label="A taped kraft carton with a Carton Connect shipping label marked registration open">
+        <defs>
+          <linearGradient id="kraft-top" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#dcb98b"/><stop offset="1" stop-color="#d2ab7a"/>
+          </linearGradient>
+          <linearGradient id="kraft-left" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c79a65"/><stop offset="1" stop-color="#bb8c58"/>
+          </linearGradient>
+          <linearGradient id="kraft-right" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#a97a49"/><stop offset="1" stop-color="#9a6d3f"/>
+          </linearGradient>
+          <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter>
+        </defs>
+
+        <!-- contact shadow -->
+        <polygon points="132,350 340,470 487,385 280,265" fill="#1f1b16" opacity="0.16" filter="url(#soft)"/>
+
+        <!-- faces -->
+        <polygon points="260,60 467.8,180 320.6,265 112.8,145" fill="url(#kraft-top)"/>
+        <polygon points="112.8,145 320.6,265 320.6,455 112.8,335" fill="url(#kraft-left)"/>
+        <polygon points="320.6,265 467.8,180 467.8,370 320.6,455" fill="url(#kraft-right)"/>
+
+        <!-- flap seam and packing tape -->
+        <line x1="186.4" y1="102.5" x2="394.2" y2="222.5" stroke="#8a6038" stroke-width="1" opacity="0.5"/>
+        <polygon points="202,93.5 409.8,213.5 378.6,231.5 170.8,111.5" fill="#e4c89f" opacity="0.85"/>
+        <polygon points="409.8,213.5 378.6,231.5 378.6,301.5 409.8,283.5" fill="#c9a679" opacity="0.85"/>
+
+        <!-- edges -->
+        <g fill="none" stroke="#7d5530" stroke-width="1" stroke-linejoin="round" opacity="0.55">
+          <polygon points="260,60 467.8,180 467.8,370 320.6,455 112.8,335 112.8,145"/>
+          <polyline points="112.8,145 320.6,265 467.8,180"/>
+          <line x1="320.6" y1="265" x2="320.6" y2="455"/>
+        </g>
+
+        <!-- "this way up" print on the right face -->
+        <g transform="matrix(0.866,-0.5,0,1,320.6,265)" fill="none" stroke="#4a3320" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7">
+          <path d="M112 150v-34M100 128l12-12 12 12"/>
+          <path d="M138 150v-34M126 128l12-12 12 12"/>
+          <line x1="98" y1="158" x2="152" y2="158"/>
+        </g>
+
+        <!-- shipping label on the left face -->
+        <g transform="matrix(0.866,0.5,0,1,112.8,145)">
+          <rect x="24" y="36" width="192" height="118" rx="3" fill="#fbf9f4"/>
+          <text x="36" y="54" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="500" fill="#1f1b16">PACD</text>
+          <text x="204" y="54" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9" fill="#756c60">for Primark</text>
+          <line x1="36" y1="62" x2="204" y2="62" stroke="#1f1b16" stroke-dasharray="3 3" opacity="0.35"/>
+          <text x="36" y="84" font-family="IBM Plex Sans, sans-serif" font-size="17" font-weight="500" fill="#1f1b16">Carton Connect</text>
+          <text x="36" y="102" font-family="IBM Plex Sans, sans-serif" font-size="10" font-weight="500" fill="#002b61">Registration open</text>
+          <g fill="#1f1b16"><rect x="36.0" y="114" width="2.4" height="26"/><rect x="40.8" y="114" width="1.2" height="26"/><rect x="43.6" y="114" width="1.2" height="26"/><rect x="46.4" y="114" width="3.6" height="26"/><rect x="52.4" y="114" width="1.2" height="26"/><rect x="55.2" y="114" width="2.4" height="26"/><rect x="59.2" y="114" width="1.2" height="26"/><rect x="62.8" y="114" width="1.2" height="26"/><rect x="65.6" y="114" width="2.4" height="26"/><rect x="69.6" y="114" width="3.6" height="26"/><rect x="75.6" y="114" width="1.2" height="26"/><rect x="78.4" y="114" width="1.2" height="26"/><rect x="81.2" y="114" width="2.4" height="26"/><rect x="86.0" y="114" width="1.2" height="26"/><rect x="88.8" y="114" width="3.6" height="26"/><rect x="94.0" y="114" width="1.2" height="26"/><rect x="97.6" y="114" width="2.4" height="26"/><rect x="101.6" y="114" width="1.2" height="26"/><rect x="104.4" y="114" width="1.2" height="26"/><rect x="108.0" y="114" width="2.4" height="26"/><rect x="112.0" y="114" width="1.2" height="26"/><rect x="114.8" y="114" width="3.6" height="26"/><rect x="120.8" y="114" width="2.4" height="26"/><rect x="124.8" y="114" width="1.2" height="26"/><rect x="127.6" y="114" width="1.2" height="26"/><rect x="131.2" y="114" width="2.4" height="26"/><rect x="135.2" y="114" width="1.2" height="26"/><rect x="138.0" y="114" width="1.2" height="26"/><rect x="141.6" y="114" width="3.6" height="26"/><rect x="146.8" y="114" width="1.2" height="26"/></g>
+          <rect x="166" y="114" width="38" height="26" rx="2" fill="#002b61"/>
+          <text x="185" y="130.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="500" fill="#fff">OPEN</text>
+        </g>
+      </svg>
+    </section>
+
+    <!-- Past events, newest first -->
+    <section class="past" id="past" aria-labelledby="past-title">
+      <h2 id="past-title">Past events</h2>
+      <ol class="ledger">
+        <li>
+          <time datetime="2026-11-04">04 Nov 2026</time>
+          <div>
+            <h3>Primark Carton Nomination Program (In-person)</h3>
+            <p>9:30 AM – 4:30 PM GMT+6 · Face-to-face · Bangladesh origin</p>
+          </div>
+          <img src="brand/primark.png" alt="Primark" width="2285" height="311">
+          <span class="ended">Ended</span>
+        </li>
+        <li>
+          <time datetime="2026-10-15">15 Oct 2026</time>
+          <div>
+            <h3>Virtual Training and Program Introduction</h3>
+            <p>3:00 PM – 4:00 PM GMT+6 · Webinar on Microsoft Teams · Bangladesh origin</p>
+          </div>
+          <img src="brand/primark.png" alt="Primark" width="2285" height="311">
+          <span class="ended">Ended</span>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>PACD</span><span>registration.pac-d.com</span></div>
+  </footer>
 </body>
 </html>
