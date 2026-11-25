@@ -9,10 +9,10 @@
   <link rel="icon" type="image/png" sizes="512x512" href="brand/icon-512.png">
   <link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
   <meta name="theme-color" content="#f7f4ee">
-  <meta name="description" content="No PACD events are open right now. Upcoming PACD events and registrations are listed here.">
+  <meta name="description" content="Register for the Matalan Transit Packaging Program (Phase 3).">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="PACD Events">
-  <meta property="og:description" content="Upcoming PACD events and registrations.">
+  <meta property="og:title" content="Matalan Transit Packaging Program (Phase 3) Registration">
+  <meta property="og:description" content="Registration is open for the Matalan Transit Packaging Program (Phase 3).">
   <meta property="og:url" content="https://registration.pac-d.com/">
   <meta property="og:image" content="https://registration.pac-d.com/brand/icon-512.png">
   <meta name="twitter:card" content="summary">
@@ -70,6 +70,24 @@
       text-wrap: balance;
     }
     .hero .sub { margin: 20px 0 0; max-width: 30rem; text-wrap: pretty; font-size: 19px; line-height: 29px; color: var(--text-2); }
+    .actions { display: flex; align-items: center; gap: 24px; margin-top: 40px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 8px;
+      background: var(--navy);
+      color: #fff;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: background-color 150ms var(--ease), transform 150ms var(--ease);
+    }
+    .btn:hover { background: var(--navy-hover); }
+    .btn:active { transform: scale(0.98); }
+    .btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     a:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 4px; }
 
     .carton { display: block; width: 100%; max-width: 540px; height: auto; margin-left: auto; }
@@ -107,6 +125,7 @@
       .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 0 56px; }
       .hero h1 { font-size: 40px; }
       .hero .sub { font-size: 17px; line-height: 26px; }
+      .actions { margin-top: 32px; }
       .carton { max-width: 400px; margin: 0 auto; }
       .ledger li { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px; }
       .ledger > li > time { grid-column: 1; grid-row: 1; }
@@ -125,14 +144,20 @@
   </header>
 
   <main class="wrap">
-    <!-- No open events. To open one, change the headline and text, add a Register button (see git history) and update the carton label. -->
+    <!-- Open registration -->
     <section class="hero">
       <div class="enter">
-        <h1>No events open right&nbsp;now</h1>
-        <p class="sub">New events and registrations will appear here as soon as they open.</p>
+        <h1>Matalan Transit Packaging Program (Phase 3)</h1>
+        <p class="sub">Registration is now open.</p>
+        <div class="actions">
+          <a class="btn" href="/mtpp-registration/">
+            Register
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
       </div>
 
-      <svg class="carton enter enter-2" viewBox="40 30 480 470" role="img" aria-label="A taped kraft carton with a PACD Events shipping label: next event to be announced">
+      <svg class="carton enter enter-2" viewBox="40 30 480 470" role="img" aria-label="A taped kraft carton with a Matalan Transit Packaging Program shipping label: Phase 3 registration open">
         <defs>
           <linearGradient id="kraft-top" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#dcb98b"/><stop offset="1" stop-color="#d2ab7a"/>
@@ -178,11 +203,11 @@
           <rect x="24" y="36" width="192" height="118" rx="3" fill="#fbf9f4"/>
           <text x="36" y="54" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="500" fill="#1f1b16">PACD</text>
           <line x1="36" y1="62" x2="204" y2="62" stroke="#1f1b16" stroke-dasharray="3 3" opacity="0.35"/>
-          <text x="36" y="84" font-family="IBM Plex Sans, sans-serif" font-size="17" font-weight="500" fill="#1f1b16">PACD Events</text>
-          <text x="36" y="102" font-family="IBM Plex Sans, sans-serif" font-size="10" font-weight="500" fill="#5e554a">Next dispatch to be announced</text>
+          <text x="36" y="84" font-family="IBM Plex Sans, sans-serif" font-size="17" font-weight="500" fill="#1f1b16">Matalan Transit</text>
+          <text x="36" y="102" font-family="IBM Plex Sans, sans-serif" font-size="10" font-weight="500" fill="#002b61">Phase 3 · Registration open</text>
           <g fill="#1f1b16"><rect x="36.0" y="114" width="2.4" height="26"/><rect x="40.8" y="114" width="1.2" height="26"/><rect x="43.6" y="114" width="1.2" height="26"/><rect x="46.4" y="114" width="3.6" height="26"/><rect x="52.4" y="114" width="1.2" height="26"/><rect x="55.2" y="114" width="2.4" height="26"/><rect x="59.2" y="114" width="1.2" height="26"/><rect x="62.8" y="114" width="1.2" height="26"/><rect x="65.6" y="114" width="2.4" height="26"/><rect x="69.6" y="114" width="3.6" height="26"/><rect x="75.6" y="114" width="1.2" height="26"/><rect x="78.4" y="114" width="1.2" height="26"/><rect x="81.2" y="114" width="2.4" height="26"/><rect x="86.0" y="114" width="1.2" height="26"/><rect x="88.8" y="114" width="3.6" height="26"/><rect x="94.0" y="114" width="1.2" height="26"/><rect x="97.6" y="114" width="2.4" height="26"/><rect x="101.6" y="114" width="1.2" height="26"/><rect x="104.4" y="114" width="1.2" height="26"/><rect x="108.0" y="114" width="2.4" height="26"/><rect x="112.0" y="114" width="1.2" height="26"/><rect x="114.8" y="114" width="3.6" height="26"/><rect x="120.8" y="114" width="2.4" height="26"/><rect x="124.8" y="114" width="1.2" height="26"/><rect x="127.6" y="114" width="1.2" height="26"/><rect x="131.2" y="114" width="2.4" height="26"/><rect x="135.2" y="114" width="1.2" height="26"/><rect x="138.0" y="114" width="1.2" height="26"/><rect x="141.6" y="114" width="3.6" height="26"/><rect x="146.8" y="114" width="1.2" height="26"/></g>
-          <rect x="166" y="114" width="38" height="26" rx="2" fill="#5e554a"/>
-          <text x="185" y="130.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="500" fill="#fff">TBA</text>
+          <rect x="166" y="114" width="38" height="26" rx="2" fill="#002b61"/>
+          <text x="185" y="130.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="500" fill="#fff">OPEN</text>
         </g>
       </svg>
     </section>
